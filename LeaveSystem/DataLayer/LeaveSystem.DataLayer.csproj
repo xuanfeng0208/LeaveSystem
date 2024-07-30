@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <ProjectReference Include="..\Domain\LeaveSystem.Domain.csproj" />
   </ItemGroup>
 
 </Project>

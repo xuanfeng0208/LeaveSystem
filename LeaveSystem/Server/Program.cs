@@ -1,8 +1,29 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using LeaveSystem.BusinessLayer.Mappings;
+using LeaveSystem.BusinessLayer.Services;
+using LeaveSystem.DataLayer.Repositories;
+using LeaveSystem.Domain.Entities;
+using LeaveSystem.Domain.Interfaces.Repositories;
+using LeaveSystem.Domain.Interfaces.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<SystemDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString(builder.Environment.IsDevelopment() ? "develop" : "master"));
+});
+builder.Services.AddScoped<DbContext>(provider => provider.GetService<SystemDbContext>());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IFunctionRepository, FunctionRepository>();
+builder.Services.AddScoped<IFunctionService, FunctionService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
