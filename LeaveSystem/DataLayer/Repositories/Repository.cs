@@ -47,6 +47,12 @@ namespace LeaveSystem.DataLayer.Repositories
 
         public async Task<Entity?> FirstOrDefaultAsync(Expression<Func<Entity, bool>> predicate) => await _dbContext.Set<Entity>().FirstOrDefaultAsync(predicate);
 
+        public bool Any(Expression<Func<Entity, bool>> predicate) => _dbContext.Set<Entity>().Any(predicate);
+
+        public IEnumerable<Entity> GetAll() => _dbContext.Set<Entity>();
+
+        public IEnumerable<Entity> Where(Expression<Func<Entity, bool>> predicate) => _dbContext.Set<Entity>().Where(predicate);
+
         public void Update(Entity entity)
         {
             _dbContext.Set<Entity>().Update(entity);
@@ -58,9 +64,5 @@ namespace LeaveSystem.DataLayer.Repositories
             _dbContext.Set<Entity>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
-
-        public IEnumerable<Entity> Where(Expression<Func<Entity, bool>> predicate) => _dbContext.Set<Entity>().Where(predicate);
-
-        public IEnumerable<Entity> GetAll() => _dbContext.Set<Entity>();
     }
 }

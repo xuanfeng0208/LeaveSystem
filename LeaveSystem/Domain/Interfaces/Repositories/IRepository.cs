@@ -14,6 +14,8 @@ namespace LeaveSystem.Domain.Interfaces.Repositories
 
         Task<Entity?> FirstOrDefaultAsync(Expression<Func<Entity, bool>> predicate);
 
+        bool Any(Expression<Func<Entity, bool>> predicate);
+
         IEnumerable<Entity> GetAll();
 
         IEnumerable<Entity> Where(Expression<Func<Entity, bool>> predicate);

@@ -14,10 +14,16 @@ builder.Services.AddDbContext<SystemDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString(builder.Environment.IsDevelopment() ? "develop" : "master"));
 });
 builder.Services.AddScoped<DbContext>(provider => provider.GetService<SystemDbContext>());
-builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IFunctionRepository, FunctionRepository>();
+builder.Services.AddScoped<IFunctionService, FunctionService>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

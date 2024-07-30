@@ -7,14 +7,14 @@ namespace LeaveSystem.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class DepartmentController : ControllerBase
     {
-        readonly IUserService _userService;
+        readonly IDepartmentService _departmentService;
 
-        public UserController(
-            IUserService userService)
+        public DepartmentController(
+            IDepartmentService departmentService)
         {
-            _userService = userService;
+            _departmentService = departmentService;
         }
 
         [HttpGet("{id}")]
@@ -23,42 +23,42 @@ namespace LeaveSystem.Server.Controllers
             if (!id.HasValue)
                 return BadRequest();
 
-            var user = _userService.GetByID(id.Value);
-            if (user == null)
+            var department = _departmentService.GetByID(id.Value);
+            if (department == null)
                 return NotFound();
 
-            return Ok(user);
+            return Ok(department);
         }
 
         [HttpGet]
-        public IActionResult Get(UserSearchModel searchModel)
+        public IActionResult Get(DepartmentSearchModel searchModel)
         {
             if (searchModel == null)
                 searchModel = new();
 
-            var list = _userService.GetList(searchModel);
+            var list = _departmentService.GetList(searchModel);
 
             return Ok(list);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UserModel model)
+        public async Task<IActionResult> Post([FromBody] DepartmentModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await _userService.CreateAsync(model);
+            await _departmentService.CreateAsync(model);
 
             return Ok();
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Patch([FromBody] UserModel model)
+        public async Task<IActionResult> Patch([FromBody] DepartmentModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            await _userService.UpdateAsync(model);
+            await _departmentService.UpdateAsync(model);
 
             return Ok();
         }
@@ -69,7 +69,7 @@ namespace LeaveSystem.Server.Controllers
             if (!id.HasValue)
                 return BadRequest();
 
-            await _userService.DeleteAsync(id.Value);
+            await _departmentService.DeleteAsync(id.Value);
 
             return Ok();
         }

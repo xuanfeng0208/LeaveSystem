@@ -11,7 +11,12 @@ namespace LeaveSystem.BusinessLayer.Mappings
         {
             CreateMap<User, UserDto>();
             CreateMap<UserModel, User>();
-
+            CreateMap<Role, RoleDto>();
+            CreateMap<RoleDto, Role>();
+            CreateMap<Function, FunctionDto>();
+            CreateMap<FunctionDto, Function>();
+            CreateMap<Department, DepartmentDto>();
+            CreateMap<DepartmentDto, Department>();
         }
     }
 }
